@@ -35,7 +35,7 @@ export function MainFooter() {
                 <Image src={logo} alt="Logo" width={160} height={40} />
               </Link>
               <p className="text-sm text-gray-400 mb-6 max-w-md">
-                InstaSign Tracker Helps Real Estate Sign Companies Manage
+               InstaSignTracker Helps Real Estate Sign Companies Manage
                 Installations, Service Calls, Inventory, And Installers From One
                 Platform.
               </p>
