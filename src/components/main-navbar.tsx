@@ -122,22 +122,19 @@ export function MainNavbar() {
               </DropdownMenu>
             ) : (
               <>
-                <button
-                  className="hidden sm:inline-flex text-lg border px-6 py-2 rounded-xl border-blue-400 text-blue-500 bg-transparent 
-    hover:bg-blue-50 hover:text-blue-600 transition"
+                <Link
+                  href="/login"
+                  className="hidden sm:inline-flex text-lg border px-6 py-2 rounded-xl border-blue-400 text-blue-500 bg-transparent hover:bg-blue-50 hover:text-blue-600 transition items-center justify-center cursor-pointer"
                 >
-                  <Link href="/login">Sign In</Link>
-                </button>
+                  Sign In
+                </Link>
 
-                <button
-                  type="submit"
-                  className="hidden sm:inline-flex px-6 py-2 rounded-xl text-lg font-medium text-white 
-    bg-linear-to-b from-[#42A5F5] to-[#1E88E5] 
-    hover:from-[#64B5F6] hover:to-[#1976D2] 
-    shadow-md transition"
+                <Link
+                  href="/signup"
+                  className="hidden sm:inline-flex px-6 py-2 rounded-xl text-lg font-medium text-white bg-linear-to-b from-[#42A5F5] to-[#1E88E5] hover:from-[#64B5F6] hover:to-[#1976D2] shadow-md transition items-center justify-center cursor-pointer"
                 >
-                  <Link href="/signup">Sign Up</Link>
-                </button>
+                  Sign Up
+                </Link>
               </>
             )}
 

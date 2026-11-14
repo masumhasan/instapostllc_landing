@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
+import Link from "next/link";
 import aboutImg from "../../../assets/about.jpg";
 import img1 from "../../../assets/Icon.png";
 import img2 from "../../../assets/Icon (2).png";
@@ -38,10 +39,13 @@ export default function AboutPage() {
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               InstaSign Tracker was created to solve real operational problems faced by real estate sign installation businesses.
               </p>
-              <button className="bg-primary text-white px-12 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center shadow-md">
+              <Link
+                href="/signup"
+                className="bg-primary text-white px-12 py-2 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors duration-300 inline-flex items-center justify-center shadow-md cursor-pointer"
+              >
                 Sign Up
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              </Link>
             </div>
             <div className="relative">
               <Image

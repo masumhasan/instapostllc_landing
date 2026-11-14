@@ -14,20 +14,20 @@ export type UserRole = string | null;
 export function getPortalUrl(role?: string | null): string {
   switch (role) {
     case "Admin":
-      return "http://localhost:3000";
+      return process.env.NEXT_PUBLIC_ADMIN_URL || "https://instapost-admin-portal.vercel.app";
     case "Sign company":
-      return "http://localhost:3002";
+      return process.env.NEXT_PUBLIC_SIGN_COMPANY_URL || "https://instapost-portal.vercel.app";
     case "Installer":
     case "Photographer":
-      return "http://localhost:3003";
+      return process.env.NEXT_PUBLIC_INSTALLER_URL || "https://instapost-installer.vercel.app";
     case "Warehouse manager":
     case "Agent":
     case "Assistant":
     case "Team Lead":
     case "Office Manager":
-      return "http://localhost:3004";
+      return process.env.NEXT_PUBLIC_WAREHOUSE_URL || "https://instapost-warehouse.vercel.app";
     default:
-      return "http://localhost:3004";
+      return process.env.NEXT_PUBLIC_WAREHOUSE_URL || "https://instapost-warehouse.vercel.app";
   }
 }
 
