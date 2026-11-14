@@ -14,7 +14,7 @@ export interface LandingFaqItem {
   answer: string;
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 
 export function FaqAccordionList({ initialFaqs }: { initialFaqs: LandingFaqItem[] }) {
   const [faqs, setFaqs] = useState<LandingFaqItem[]>(initialFaqs);

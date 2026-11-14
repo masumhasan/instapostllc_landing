@@ -39,7 +39,8 @@ export default function PaymentPage() {
         role: "Agent",
       };
 
-      const res = await fetch("http://localhost:5000/auth/sign-up", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
+      const res = await fetch(`${apiBase}/auth/sign-up`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

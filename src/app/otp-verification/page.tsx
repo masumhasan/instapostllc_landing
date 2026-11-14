@@ -52,7 +52,8 @@ export default function OTPVerificationPage() {
     const email = sessionStorage.getItem("reset_email") || "";
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/auth/verify-otp", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
+      const res = await fetch(`${apiBase}/auth/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: otpCode }),

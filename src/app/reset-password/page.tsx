@@ -37,7 +37,8 @@ export default function ResetPasswordPage() {
     }
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/auth/reset-password", {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
+      const res = await fetch(`${apiBase}/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resetToken, newPassword: password }),

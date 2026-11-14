@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Facebook, Globe, Instagram, Youtube } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 
 const ICON_MAP: Record<string, typeof Facebook> = {
   facebook: Facebook,

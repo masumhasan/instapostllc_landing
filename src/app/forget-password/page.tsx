@@ -24,8 +24,9 @@ export default function ForgetPasswordPage() {
     setErrorMessage("");
     setLoading(true);
     try {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
       sessionStorage.setItem("reset_email", email);
-      await fetch("http://localhost:5000/auth/forgot-password", {
+      await fetch(`${apiBase}/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

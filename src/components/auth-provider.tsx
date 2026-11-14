@@ -47,7 +47,7 @@ interface AuthContextType {
   checkAuth: () => Promise<void>;
 }
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {

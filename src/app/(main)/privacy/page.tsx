@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 export const dynamic = "force-dynamic";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 
 const FALLBACK_PRIVACY_HTML = `
 <p class="mb-6">At InstaSign Tracker, accessible from instasigntracker.com, one of our main priorities is the privacy of our visitors and users. This Privacy Policy document outlines the types of information collected and how we use it.</p>

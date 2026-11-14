@@ -9,7 +9,7 @@ export interface ContactUsSettings {
   socials?: { platform: string; url: string; icon?: string }[];
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 
 const normalizePhoneHref = (raw: string) => {
   const cleaned = raw.replace(/[^0-9+]/g, "");

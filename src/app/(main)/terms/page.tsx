@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 export const dynamic = "force-dynamic";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
 
 const FALLBACK_TERMS_HTML = `
 <p class="mb-6">Welcome to InstaSign Tracker. By accessing or using our platform, mobile interfaces, or warehouse systems, you agree to comply with and be bound by the following terms and operational guidelines.</p>
