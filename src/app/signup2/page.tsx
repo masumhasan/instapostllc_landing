@@ -16,6 +16,9 @@ export default function SignUp2Page() {
   const [address, setAddress] = useState("");
   const router = useRouter();
 
+  const inputStyle =
+    "w-full h-11 text-gray-900 placeholder:text-gray-400 bg-white border-gray-300 focus-visible:border-primary focus-visible:ring-primary/20 dark:text-gray-900 dark:bg-white dark:border-gray-300 dark:placeholder:text-gray-400";
+
   return (
     <div className="min-h-screen flex bg-gray-50 font-opensans">
       {/* Left side - Image */}
@@ -30,7 +33,7 @@ export default function SignUp2Page() {
       </div>
 
       {/* Right side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16 xl:px-24 bg-white">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16 xl:px-24 bg-white text-gray-900">
         <div className="max-w-md w-full mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
@@ -62,7 +65,17 @@ export default function SignUp2Page() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              sessionStorage.setItem(
+                "signup_step2",
+                JSON.stringify({ companyName: companyName.trim(), companyEmail: companyEmail.trim(), phone: phone.trim(), address: address.trim() })
+              );
+              router.push("/choosePlan");
+            }}
+          >
             {/* Company Name */}
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
@@ -74,7 +87,7 @@ export default function SignUp2Page() {
                 value={companyName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyName(e.target.value)}
                 required
-                className="w-full h-11"
+                className={inputStyle}
               />
             </div>
 
@@ -89,7 +102,7 @@ export default function SignUp2Page() {
                 value={companyEmail}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyEmail(e.target.value)}
                 required
-                className="w-full h-11"
+                className={inputStyle}
               />
             </div>
 
@@ -111,7 +124,7 @@ export default function SignUp2Page() {
                   value={phone}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
                   required
-                  className="w-full h-11 pl-16"
+                  className={`${inputStyle} pl-16`}
                 />
               </div>
             </div>
@@ -129,7 +142,7 @@ export default function SignUp2Page() {
                   value={address}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}
                   required
-                  className="w-full h-11 pl-10"
+                  className={`${inputStyle} pl-10`}
                 />
               </div>
             </div>
@@ -137,8 +150,7 @@ export default function SignUp2Page() {
             {/* Next Button */}
             <div className="pt-2">
               <Button
-                type="button"
-                onClick={() => router.push("/choosePlan")}
+                type="submit"
                 className="w-full h-12 text-base bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg"
               >
                 Next

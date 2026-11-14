@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Facebook, Instagram, Youtube } from "lucide-react";
 import QuickCall from "./home/QuickCall";
 import Image from "next/image";
 import logo from "../assets/logo.png";
+import { FooterSocialLinks } from "./FooterSocialLinks";
+
 const footerLinks = {
   products: [
     { label: "Pricing", href: "#" },
@@ -13,12 +14,6 @@ const footerLinks = {
     { label: "Contact Us", href: "/contact" },
   ],
 };
-
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-];
 
 export function MainFooter() {
   return (
@@ -39,18 +34,7 @@ export function MainFooter() {
                 Installations, Service Calls, Inventory, And Installers From One
                 Platform.
               </p>
-              <div className="flex items-center gap-4">
-                {socialLinks.map((social) => (
-                  <Link
-                    key={social.label}
-                    href={social.href}
-                    className="text-gray-400 hover:text-white transition-colors"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="h-5 w-5" />
-                  </Link>
-                ))}
-              </div>
+              <FooterSocialLinks />
             </div>
 
             {/* Right Side - Links */}

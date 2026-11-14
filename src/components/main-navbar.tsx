@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useTheme } from "@/components/theme-provider";
-import { useAuth } from "@/components/auth-provider";
+import { useAuth, getPortalUrl } from "@/components/auth-provider";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import logo from "../assets/logo.png";
@@ -108,16 +108,10 @@ export function MainNavbar() {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link
-                      href={
-                        user?.role === "agent"
-                          ? "/agent/dashboard"
-                          : "/assistant/dashboard"
-                      }
-                    >
+                    <a href={getPortalUrl(user?.role)}>
                       <User className="mr-2 h-4 w-4" />
-                      Dashboard
-                    </Link>
+                      Open Portal
+                    </a>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={logout}>

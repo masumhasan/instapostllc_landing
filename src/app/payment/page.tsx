@@ -11,7 +11,55 @@ export default function PaymentPage() {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvc, setCvc] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+
+  const inputStyle =
+    "w-full h-11 bg-gray-100 border-0 text-gray-900 placeholder:text-gray-400 dark:bg-gray-100 dark:text-gray-900 dark:placeholder:text-gray-400";
+
+  const handlePayNow = async () => {
+    setErrorMessage("");
+    setLoading(true);
+    try {
+      const step1 = JSON.parse(sessionStorage.getItem("signup_step1") || "{}");
+      const step2 = JSON.parse(sessionStorage.getItem("signup_step2") || "{}");
+
+      if (!step1.email || !step1.password) {
+        setErrorMessage("Registration details missing. Please start at Sign Up.");
+        return;
+      }
+
+      const payload = {
+        name: `${step1.firstName || ""} ${step1.lastName || ""}`.trim() || "New User",
+        email: step1.email,
+        password: step1.password,
+        company: step2.companyName || "Instapost",
+        phone: step2.phone || "",
+        role: "Agent",
+      };
+
+      const res = await fetch("http://localhost:5000/auth/sign-up", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setErrorMessage(data.message || "Failed to complete account registration.");
+        return;
+      }
+
+      sessionStorage.removeItem("signup_step1");
+      sessionStorage.removeItem("signup_step2");
+      router.push("/login");
+    } catch {
+      setErrorMessage("Network error connecting to backend service.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 font-opensans">
@@ -48,7 +96,7 @@ export default function PaymentPage() {
                   placeholder="Nur Mohammad Sujon"
                   value={cardHolderName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCardHolderName(e.target.value)}
-                  className="w-full h-11 bg-gray-100 border-0"
+                  className={inputStyle}
                 />
               </div>
 
@@ -62,7 +110,7 @@ export default function PaymentPage() {
                   placeholder="XXXX XXXX XXXX XXXX"
                   value={cardNumber}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCardNumber(e.target.value)}
-                  className="w-full h-11 bg-gray-100 border-0"
+                  className={inputStyle}
                 />
               </div>
 
@@ -77,7 +125,7 @@ export default function PaymentPage() {
                     placeholder="MM/DD"
                     value={expiryDate}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExpiryDate(e.target.value)}
-                    className="w-full h-11 bg-gray-100 border-0"
+                    className={inputStyle}
                   />
                 </div>
                 <div>
@@ -89,7 +137,7 @@ export default function PaymentPage() {
                     placeholder="XXX"
                     value={cvc}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCvc(e.target.value)}
-                    className="w-full h-11 bg-gray-100 border-0"
+                    className={inputStyle}
                   />
                 </div>
               </div>
@@ -131,13 +179,19 @@ export default function PaymentPage() {
                 </div>
               </div>
 
+              {/* Error Message */}
+              {errorMessage && (
+                <p className="text-xs text-red-500 font-medium">{errorMessage}</p>
+              )}
+
               {/* Pay Now Button */}
               <div className="pt-4">
                 <Button
-                  onClick={() => router.push("/")}
+                  onClick={handlePayNow}
+                  disabled={loading}
                   className="w-full h-11 bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg"
                 >
-                  Pay Now
+                  {loading ? "Processing..." : "Pay Now"}
                 </Button>
               </div>
             </div>

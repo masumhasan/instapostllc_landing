@@ -18,6 +18,9 @@ export default function SignUpPage() {
   const [howDidYouHear, setHowDidYouHear] = useState("");
   const router = useRouter();
 
+  const inputStyle =
+    "w-full h-11 text-gray-900 placeholder:text-gray-400 bg-white border-gray-300 focus-visible:border-primary focus-visible:ring-primary/20 dark:text-gray-900 dark:bg-white dark:border-gray-300 dark:placeholder:text-gray-400";
+
   return (
     <div className="min-h-screen flex bg-gray-50 font-opensans">
       {/* Left side - Image */}
@@ -32,7 +35,7 @@ export default function SignUpPage() {
       </div>
 
       {/* Right side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16 xl:px-24 bg-white">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-8 sm:px-12 lg:px-16 xl:px-24 bg-white text-gray-900">
         <div className="max-w-md w-full mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
@@ -64,7 +67,18 @@ export default function SignUpPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!firstName.trim() || !lastName.trim() || !email.trim() || password.length < 8) return;
+              sessionStorage.setItem(
+                "signup_step1",
+                JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), password })
+              );
+              router.push("/signup2");
+            }}
+          >
             {/* First Name and Last Name */}
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -77,7 +91,7 @@ export default function SignUpPage() {
                   value={firstName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
                   required
-                  className="w-full h-11"
+                  className={inputStyle}
                 />
               </div>
               <div>
@@ -90,7 +104,7 @@ export default function SignUpPage() {
                   value={lastName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
                   required
-                  className="w-full h-11"
+                  className={inputStyle}
                 />
               </div>
             </div>
@@ -106,7 +120,7 @@ export default function SignUpPage() {
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 required
-                className="w-full h-11"
+                className={inputStyle}
               />
             </div>
 
@@ -122,7 +136,7 @@ export default function SignUpPage() {
                   value={password}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   required
-                  className="w-full h-11 pr-10"
+                  className={`${inputStyle} pr-10`}
                 />
                 <button
                   type="button"
@@ -149,15 +163,14 @@ export default function SignUpPage() {
                 value={howDidYouHear}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHowDidYouHear(e.target.value)}
                 required
-                className="w-full h-11"
+                className={inputStyle}
               />
             </div>
 
             {/* Next Button */}
             <div className="pt-2">
               <Button
-                type="button"
-                onClick={() => router.push("/signup2")}
+                type="submit"
                 className="w-full h-12 text-base bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg"
               >
                 Next

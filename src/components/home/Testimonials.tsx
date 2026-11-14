@@ -3,10 +3,10 @@
 import React, { useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import m1 from "@/assets/m1.png";
-import m2 from "@/assets/m2.png";
-import m3 from "@/assets/m3.png";
-import logo from "@/assets/logo.png";
+const m1 = "https://res.cloudinary.com/c1u8capm/image/upload/v1794320004/instapost/assets/assets_m1_png.png";
+const m2 = "https://res.cloudinary.com/c1u8capm/image/upload/v1794320005/instapost/assets/assets_m2_png.png";
+const m3 = "https://res.cloudinary.com/c1u8capm/image/upload/v1794320005/instapost/assets/assets_m3_png.png";
+const logo = "https://res.cloudinary.com/c1u8capm/image/upload/v1794320003/instapost/assets/assets_logo_png.png";
 
 const testimonials = [
   {

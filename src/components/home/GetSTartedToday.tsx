@@ -12,11 +12,6 @@ import {
   Send,
 } from "lucide-react";
 import Image from "next/image";
-import m1 from "@/assets/m1.png";
-import m2 from "@/assets/m2.png";
-import m3 from "@/assets/m3.png";
-import m4 from "@/assets/m4.png";
-import logo from "@/assets/logo.png";
 
 const GetSTartedToday = () => {
   const [formData, setFormData] = useState({

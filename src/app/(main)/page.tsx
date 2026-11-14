@@ -73,7 +73,7 @@ export default function HomePage() {
                 <Image
                   width={800}
                   height={800}
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
+                  src="https://res.cloudinary.com/c1u8capm/image/upload/v1794320033/instapost/assets/mig_0703969062e80f.jpg"
                   alt="Real estate sign"
                   className="w-full h-auto object-cover"
                 />

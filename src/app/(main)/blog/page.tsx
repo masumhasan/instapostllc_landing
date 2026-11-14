@@ -10,7 +10,7 @@ const posts = [
       "Learn proven strategies to get the most out of your real estate signage investment and attract more qualified leads.",
     date: "Mar 5, 2026",
     image:
-      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320034/instapost/assets/mig_20ddfeb2ab30a7.jpg",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const posts = [
       "Discover how technology is transforming the way agents market properties and engage with potential buyers.",
     date: "Mar 3, 2026",
     image:
-      "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320035/instapost/assets/mig_8259436c717de9.jpg",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const posts = [
       "Expert tips on recruiting, training, and managing assistants to grow your real estate business effectively.",
     date: "Feb 28, 2026",
     image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320036/instapost/assets/mig_c0a5707b2111c3.jpg",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const posts = [
       "How to optimize your sign placement throughout the year to match market conditions and buyer behavior.",
     date: "Feb 25, 2026",
     image:
-      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320037/instapost/assets/mig_314fa2adbc7e7c.jpg",
   },
   {
     id: 5,
@@ -46,7 +46,7 @@ const posts = [
       "Finding the right balance between online marketing and traditional methods like signage for maximum impact.",
     date: "Feb 20, 2026",
     image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320037/instapost/assets/mig_fa17f8e3a1b72a.jpg",
   },
   {
     id: 6,
@@ -55,7 +55,7 @@ const posts = [
       "An in-depth look at how strategic sign management helped transform a struggling agent's business.",
     date: "Feb 18, 2026",
     image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80",
+      "https://res.cloudinary.com/c1u8capm/image/upload/v1794320038/instapost/assets/mig_a7b314e1a8df37.jpg",
   },
 ];
 

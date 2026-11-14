@@ -9,7 +9,27 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 
-export type UserRole = "agent" | "assistant" | null;
+export type UserRole = string | null;
+
+export function getPortalUrl(role?: string | null): string {
+  switch (role) {
+    case "Admin":
+      return "http://localhost:3000";
+    case "Sign company":
+      return "http://localhost:3002";
+    case "Installer":
+    case "Photographer":
+      return "http://localhost:3003";
+    case "Warehouse manager":
+    case "Agent":
+    case "Assistant":
+    case "Team Lead":
+    case "Office Manager":
+      return "http://localhost:3004";
+    default:
+      return "http://localhost:3004";
+  }
+}
 
 interface User {
   id: string;
@@ -27,6 +47,7 @@ interface AuthContextType {
   checkAuth: () => Promise<void>;
 }
 
+const BACKEND_URL = "http://localhost:5000";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -40,24 +61,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const token = localStorage.getItem("auth_token");
+      const token = localStorage.getItem("auth_token") || localStorage.getItem("token");
       if (!token) {
         setIsLoading(false);
         return;
       }
 
-      // Mock API call - replace with actual backend verification
-      const response = await fetch("/api/auth/me", {
+      const response = await fetch(`${BACKEND_URL}/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        credentials: "include",
       });
 
       if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
+        const data = await response.json();
+        const u = data?.data?.user || data?.user || data?.data;
+        if (u && u.email) {
+          setUser({
+            id: u._id || u.id || "1",
+            email: u.email,
+            name: u.name || u.email.split("@")[0],
+            role: u.role || "Agent",
+          });
+        }
       } else {
         localStorage.removeItem("auth_token");
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
       }
     } catch (error) {
       console.error("Auth check failed:", error);
@@ -69,29 +101,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // Mock API call - replace with actual backend login
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${BACKEND_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
       const data = await response.json();
-      localStorage.setItem("auth_token", data.token);
-      setUser(data.user);
-
-      // Redirect based on role from backend
-      if (data.user.role === "agent") {
-        router.push("/agent/dashboard");
-      } else if (data.user.role === "assistant") {
-        router.push("/assistant/dashboard");
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || "Invalid email or password");
       }
+
+      const token = data?.data?.accessToken || data?.token;
+      const refreshToken = data?.data?.refreshToken;
+      const u = data?.data?.user || data?.user;
+      if (!token || !u) {
+        throw new Error("Invalid response from authentication server");
+      }
+
+      localStorage.setItem("auth_token", token);
+      localStorage.setItem("token", token);
+      if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("user", JSON.stringify(u));
+      setUser({
+        id: u._id || u.id || "1",
+        email: u.email || email,
+        name: u.name || email.split("@")[0],
+        role: u.role || "Agent",
+      });
+
+      router.push("/");
     } catch (error) {
       console.error("Login error:", error);
       throw error;
@@ -102,45 +144,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      await fetch("/api/auth/logout", { method: "POST" });
+      await fetch(`${BACKEND_URL}/auth/logout`, { method: "POST", credentials: "include" });
     } catch (error) {
       console.error("Logout error:", error);
     } finally {
       localStorage.removeItem("auth_token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setUser(null);
-      router.push("/auth/login");
-    }
-  };
-
-  // Mock login for development (remove in production)
-  const mockLogin = async (email: string, _password: string) => {
-    setIsLoading(true);
-    
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    // Determine role based on email pattern for testing
-    let role: UserRole = "agent";
-    if (email.includes("assistant")) {
-      role = "assistant";
-    }
-    
-    const mockUser: User = {
-      id: "1",
-      email,
-      name: email.split("@")[0],
-      role,
-    };
-    
-    localStorage.setItem("auth_token", "mock_token");
-    setUser(mockUser);
-    setIsLoading(false);
-    
-    // Redirect based on role
-    if (role === "agent") {
-      router.push("/agent/dashboard");
-    } else {
-      router.push("/assistant/dashboard");
+      router.push("/login");
     }
   };
 
@@ -150,7 +162,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isLoading,
         isAuthenticated: !!user,
-        login: mockLogin, // Use mockLogin for development
+        login,
         logout,
         checkAuth,
       }}
@@ -163,7 +175,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    // Return default values during SSR when provider isn't available yet
     return {
       user: null,
       isLoading: true,
@@ -183,15 +194,6 @@ export function useRequireAuth(role?: UserRole) {
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
-    }
-    
-    if (!isLoading && isAuthenticated && role && user?.role !== role) {
-      // Redirect to appropriate dashboard if role doesn't match
-      if (user?.role === "agent") {
-        router.push("/agent/dashboard");
-      } else if (user?.role === "assistant") {
-        router.push("/assistant/dashboard");
-      }
     }
   }, [isLoading, isAuthenticated, user, role, router]);
 
