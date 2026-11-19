@@ -74,7 +74,7 @@ export default function SignUpPage() {
               if (!firstName.trim() || !lastName.trim() || !email.trim() || password.length < 8) return;
               sessionStorage.setItem(
                 "signup_step1",
-                JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), password })
+                JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), password, howDidYouHear: howDidYouHear.trim() })
               );
               router.push("/signup2");
             }}
@@ -116,7 +116,7 @@ export default function SignUpPage() {
               </label>
               <Input
                 type="email"
-                placeholder="Asadujjaman@gmail.com"
+                placeholder="e.g. Google, a friend, social media"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 required
@@ -159,7 +159,7 @@ export default function SignUpPage() {
               </label>
               <Input
                 type="text"
-                placeholder="Asadujjaman@gmail.com"
+                placeholder="e.g. Google, a friend, social media"
                 value={howDidYouHear}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHowDidYouHear(e.target.value)}
                 required

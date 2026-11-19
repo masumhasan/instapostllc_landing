@@ -37,6 +37,7 @@ export default function PaymentPage() {
         company: step2.companyName || "Instapost",
         phone: step2.phone || "",
         role: "Agent",
+        howDidYouHear: step1.howDidYouHear || "",
       };
 
       const apiBase = process.env.NEXT_PUBLIC_API_URL || "https://instapost-backend.vercel.app";
