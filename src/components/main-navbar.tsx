@@ -25,7 +25,6 @@ const navItems = [
   { href: "/products", label: "Products" },
   { href: "/features", label: "Features" },
   { href: "/faq", label: "FAQ" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About us" },
 ];
 

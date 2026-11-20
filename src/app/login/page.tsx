@@ -99,7 +99,7 @@ export default function SignInPage() {
               </label>
               <Input
                 type="email"
-                placeholder="asadujjaman@gmail.com"
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setEmail(e.target.value)

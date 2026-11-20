@@ -87,7 +87,7 @@ export default function SignUpPage() {
                 </label>
                 <Input
                   type="text"
-                  placeholder="Asadujjaman"
+                  placeholder="First name"
                   value={firstName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
                   required
@@ -100,7 +100,7 @@ export default function SignUpPage() {
                 </label>
                 <Input
                   type="text"
-                  placeholder="Asadujjaman"
+                  placeholder="Last name"
                   value={lastName}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
                   required

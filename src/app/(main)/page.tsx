@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight, MapPin, BarChart3, Users, Shield, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import Testimonials from "@/components/home/Testimonials";
 import GetSTartedToday from "@/components/home/GetSTartedToday";
 import Image from "next/image";
 
@@ -108,9 +107,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Testimonials Section */}
-      <Testimonials />
 
       {/* Get Started Today Section */}
       <GetSTartedToday />

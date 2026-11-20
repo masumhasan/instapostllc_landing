@@ -73,7 +73,7 @@ export default function SignUp2Page() {
                 "signup_step2",
                 JSON.stringify({ companyName: companyName.trim(), companyEmail: companyEmail.trim(), phone: phone.trim(), address: address.trim() })
               );
-              router.push("/choosePlan");
+              router.push("/payment");
             }}
           >
             {/* Company Name */}
@@ -83,7 +83,7 @@ export default function SignUp2Page() {
               </label>
               <Input
                 type="text"
-                placeholder="Asadujjaman"
+                placeholder="Company name"
                 value={companyName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyName(e.target.value)}
                 required
@@ -98,7 +98,7 @@ export default function SignUp2Page() {
               </label>
               <Input
                 type="email"
-                placeholder="Asadujjaman@gmail.com"
+                placeholder="company@example.com"
                 value={companyEmail}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompanyEmail(e.target.value)}
                 required
