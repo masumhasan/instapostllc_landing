@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -16,6 +16,9 @@ const montserrat = Montserrat({
   variable: "--font-sans",
   weight: ["300", "400", "500", "600", "700"],
 });
+
+// Fixed mobile viewport: no pinch-to-zoom (client request), so the layout never shifts on phones.
+export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 1, userScalable: false };
 
 export const metadata: Metadata = {
   title: "InstaPost",
