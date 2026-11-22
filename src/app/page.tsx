@@ -5,6 +5,7 @@ import PlatformManage from "@/components/home/platformManage";
 import WhyChoose from "@/components/home/WhyChoose";
 import WeManage from "@/components/home/WeManage";
 import GetSTartedToday from "@/components/home/GetSTartedToday";
+import ReviewsSection from "@/components/home/ReviewsSection";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <PlatformManage />
         <WhyChoose />
         <WeManage />
+        <ReviewsSection />
         <GetSTartedToday />
       </main>
       
